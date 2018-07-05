@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xin.yxblog.mapper.StudentMapper">
+    <resultMap id="BaseResultMap" type="com.xin.yxblog.model.Student">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="BIT"/>
+        <result column="d_name" property="dName" jdbcType="VARCHAR"/>
+        <result column="d_age_bitdat" property="dAgeBitdat" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.xin.yxblog.model.Student" extends="BaseResultMap">
+    <result column="content" property="content" jdbcType="LONGVARBINARY"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim suffixOverrides=",">
+            id,
+            name,
+            age,
+            birthday,
+            status,
+            d_name,
+            d_age_bitdat,
+        </trim>
+  </sql>
+    <sql id="Blob_Column_List">
+        <trim suffixOverrides=",">
+            content,
+        </trim>
+  </sql>
+    <select id="count" resultType="int">
+        select
+        count(*)
+        from student
+        <where>
+            <if test="id!=null and id!=''">and id = #{id,jdbcType=INTEGER}</if>
+            <if test="name!=null and name!=''">and name = #{name,jdbcType=VARCHAR}</if>
+            <if test="age!=null and age!=''">and age = #{age,jdbcType=INTEGER}</if>
+            <if test="birthday!=null and birthday!=''">and birthday = #{birthday,jdbcType=TIMESTAMP}</if>
+            <if test="status!=null and status!=''">and status = #{status,jdbcType=BIT}</if>
+            <if test="dName!=null and dName!=''">and d_name = #{dName,jdbcType=VARCHAR}</if>
+            <if test="dAgeBitdat!=null and dAgeBitdat!=''">and d_age_bitdat = #{dAgeBitdat,jdbcType=VARCHAR}</if>
+        </where>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from student
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="list" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from student
+        <where>
+            <if test="id!=null and id!=''">and id = #{id,jdbcType=INTEGER}</if>
+            <if test="name!=null and name!=''">and name = #{name,jdbcType=VARCHAR}</if>
+            <if test="age!=null and age!=''">and age = #{age,jdbcType=INTEGER}</if>
+            <if test="birthday!=null and birthday!=''">and birthday = #{birthday,jdbcType=TIMESTAMP}</if>
+            <if test="status!=null and status!=''">and status = #{status,jdbcType=BIT}</if>
+            <if test="dName!=null and dName!=''">and d_name = #{dName,jdbcType=VARCHAR}</if>
+            <if test="dAgeBitdat!=null and dAgeBitdat!=''">and d_age_bitdat = #{dAgeBitdat,jdbcType=VARCHAR}</if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() !=''">
+                order by ${id} ${order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="offset!=null and limit!=null">
+            limit ${offset} , ${limit}
+        </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from student
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="batchRemove" parameterType="java.lang.Integer">
+        delete from student
+        where id in
+        <foreach collection="array" item="id" open="(" separator=","  close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <insert id="insert" parameterType="com.xin.yxblog.model.Student" useGeneratedKeys="true" keyProperty="id">
+    insert into student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            name,
+            age,
+            birthday,
+            status,
+            d_name,
+            d_age_bitdat,
+            content,
+        </trim>
+        <trim prefix="values ("  suffix=")" suffixOverrides=",">
+            #{id,jdbcType=INTEGER},
+            #{name,jdbcType=VARCHAR},
+            #{age,jdbcType=INTEGER},
+            #{birthday,jdbcType=TIMESTAMP},
+            #{status,jdbcType=BIT},
+            #{dName,jdbcType=VARCHAR},
+            #{dAgeBitdat,jdbcType=VARCHAR},
+            #{content,jdbcType=LONGVARBINARY},
+        </trim>
+  </insert>
+    <insert id="insertSelective" parameterType="com.xin.yxblog.model.Student" useGeneratedKeys="true" keyProperty="id">
+        insert into student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null ">id,</if>
+            <if test="name!=null ">name,</if>
+            <if test="age!=null ">age,</if>
+            <if test="birthday!=null ">birthday,</if>
+            <if test="status!=null ">status,</if>
+            <if test="dName!=null ">d_name,</if>
+            <if test="dAgeBitdat!=null ">d_age_bitdat,</if>
+            <if test="content!=null ">content,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id!=null ">#{id,jdbcType=INTEGER},</if>
+            <if test="name!=null ">#{name,jdbcType=VARCHAR},</if>
+            <if test="age!=null ">#{age,jdbcType=INTEGER},</if>
+            <if test="birthday!=null ">#{birthday,jdbcType=TIMESTAMP},</if>
+            <if test="status!=null ">#{status,jdbcType=BIT},</if>
+            <if test="dName!=null ">#{dName,jdbcType=VARCHAR},</if>
+            <if test="dAgeBitdat!=null ">#{dAgeBitdat,jdbcType=VARCHAR},</if>
+            <if test="content!=null ">#{content,jdbcType=LONGVARBINARY},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xin.yxblog.model.Student" useGeneratedKeys="true" keyProperty="id">
+        update student
+        <set>
+            <if test="name!=null ">name = #{name,jdbcType=VARCHAR},</if>
+            <if test="age!=null ">age = #{age,jdbcType=INTEGER},</if>
+            <if test="birthday!=null ">birthday = #{birthday,jdbcType=TIMESTAMP},</if>
+            <if test="status!=null ">status = #{status,jdbcType=BIT},</if>
+            <if test="dName!=null ">d_name = #{dName,jdbcType=VARCHAR},</if>
+            <if test="dAgeBitdat!=null ">d_age_bitdat = #{dAgeBitdat,jdbcType=VARCHAR},</if>
+            <if test="content!=null ">content = #{content,jdbcType=LONGVARBINARY},</if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xin.yxblog.model.Student" useGeneratedKeys="true" keyProperty="id">
+    update student
+    <set>
+        name = #{name,jdbcType=VARCHAR},
+        age = #{age,jdbcType=INTEGER},
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+        status = #{status,jdbcType=BIT},
+        d_name = #{dName,jdbcType=VARCHAR},
+        d_age_bitdat = #{dAgeBitdat,jdbcType=VARCHAR},
+        content = #{content,jdbcType=LONGVARBINARY},
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.xin.yxblog.model.Student" useGeneratedKeys="true" keyProperty="id">
+    update student
+    <set>
+        name = #{name,jdbcType=VARCHAR},
+        age = #{age,jdbcType=INTEGER},
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+        status = #{status,jdbcType=BIT},
+        d_name = #{dName,jdbcType=VARCHAR},
+        d_age_bitdat = #{dAgeBitdat,jdbcType=VARCHAR},
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>
