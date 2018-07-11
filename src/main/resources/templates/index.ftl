@@ -62,7 +62,7 @@
                         <a class="conent-href" href="blog/comment/2">
                             <li class="children-menu-item">
                                 评论审核
-                            <#if (checkCommentCount!>=0)>
+                            <#if (checkCommentCount!>0)>
                                 <span class="badge badge-info" style="margin-left: 50px;">${checkCommentCount}</span>
                             </#if>
                             </li>
@@ -109,9 +109,8 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div id="home" class="container tab-pane active"><br>
-                    <h3>HOME</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
+                    <h3>首页</h3>
+                    <p>github:<a href="https://github.com/dreamlandfeeling/blog" target="_blank">https://github.com/dreamlandfeeling/blog</a></p>
                 </div>
             </div>
         </div>

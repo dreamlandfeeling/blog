@@ -41,7 +41,6 @@ public class CommentController extends BaseController{
     @ResponseBody
     @GetMapping("/comment/list/{status}")
     public Page list(@RequestParam Map<String,Object> map,@PathVariable Integer status){
-        map.put("uid",status);
         map.put("status",status);
         List<Comment> list = commentService.list(map);
         int total = commentService.count(map);

@@ -9,7 +9,7 @@
 ## 功能介绍
 1.  发表文章，对文章的管理
 2.  游客对文章的评论和回复功能，博主可以审核评论，对评论进行管理
-3.  后端代码一键生成(controller/service/model/mapper)暂时只支持mysql
+3.  后端代码一键生成(controller/service/model/mapper)暂时只支持mysql，配置文件:generator.properties
 
 ## 部分项目图
 ![Image text](https://github.com/dreamlandfeeling/blog/blob/master/img-folder/admin.png)
@@ -21,11 +21,6 @@
 2.	修改application.properties 的数据库配置
 3.	运行application类或者在项目根目录使用命令行mvn spring-boot:run
 4.	访问路径从http://localhost:8080/blog/  开始比较好
-
-
-
-
-
 
    
 
