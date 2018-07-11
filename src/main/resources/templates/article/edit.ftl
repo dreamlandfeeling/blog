@@ -16,7 +16,7 @@
             border: 1 solid black;
         }
     </style>
-    <script  >
+    <script>
         $(function () {
             $('#summernote').summernote({
                 lang: 'zh-CN',
@@ -28,13 +28,13 @@
                     }
                 }
             });
-            loadArticl();
+            // loadArticl();
         })
 
         function loadArticl() {
-            var content = '${article.content!""}';
-            if(content != null && content.trim() != ''){
-                $('#summernote').summernote('code',content);
+            var content = $('#content').val();
+            if (content != null && content.trim() != '') {
+                $('#summernote').summernote('code', content);
             }
         }
 
@@ -77,17 +77,17 @@
             var id = $('#id');
             $('#status').val(1);
             $.ajax({
-                url : "blog/article/"+id,
-                type : "put",
-                data : $('#blog-form').serialize(),
-                success : function(data) {
+                url: "blog/article/" + id,
+                type: "put",
+                data: $('#blog-form').serialize(),
+                success: function (data) {
                     if (data.status == 200) {
                         layer.alert("发布成功");
                     } else {
-                        layer.alert("发布失败");
+                        layer.alert(data.message);
                     }
                 },
-                dataType:'json'
+                dataType: 'json'
             });
         }
 
@@ -96,23 +96,21 @@
             var id = $('#id');
             $('#status').val(0);
             $.ajax({
-                url : "blog/article/"+id,
-                type : "put",
-                data : $('#blog-form').serialize(),
-                success : function(data) {
+                url: "blog/article/" + id,
+                type: "put",
+                data: $('#blog-form').serialize(),
+                success: function (data) {
                     if (data.status == 200) {
                         layer.alert("存稿成功");
                     } else {
-                        layer.alert("存稿失败");
+                        layer.alert(data.message);
                     }
                 },
-                dataType:'json'
+                dataType: 'json'
             });
         }
     </script>
 </head>
-
-
 
 
 <body>
@@ -121,23 +119,24 @@
     <form id="blog-form">
         <input id="id" name="id" type="hidden" value="${article.id!}">
         <input id="content" name="content" type="hidden" value="${article.status!}">
-        <input id="status" name="status" type="hidden" value="${article.id!}">
+        <input id="status" name="status" type="hidden" value="${article.status!}">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">标题(必需)</span>
+                <span class="input-group-text">标题(必填)</span>
             </div>
-            <input type="text" class="form-control" placeholder="title" name="title" id="title" value="${article.title!}">
+            <input type="text" class="form-control" placeholder="title" name="title" id="title"
+                   value="${article.title!}">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">作者(任意)</span>
+                <span class="input-group-text">作者(选填)</span>
             </div>
             <input type="text" class="form-control" placeholder="author" name="author" value="${article.author!}">
         </div>
         <div class="form-group">
             内容(必需)：<span id="loadingText"></span>
             <div class="ibox-content no-padding">
-                <div id="summernote"></div>
+                <div id="summernote">${article.content!}</div>
             </div>
         </div>
         <a class="btn btn-primary" onclick="saveArticle()">发布文章</a>

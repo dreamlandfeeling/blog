@@ -1,5 +1,7 @@
 package com.xin.yxblog.dto;
 
+import com.xin.yxblog.utils.StringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,11 +15,17 @@ public class Query extends HashMap {
      */
     private int limit;
 
-    public Query(Map map){
+    public Query(Map map) {
         this.putAll(map);
-        this.offset = Integer.parseInt(map.get("offset").toString());
-        this.limit = Integer.parseInt(map.get("limit").toString());
-
+        Object offset = map.get("offset");
+        Object limit = map.get("limit");
+        if (offset != null && limit != null) {
+            this.offset = Integer.parseInt(offset.toString());
+            this.limit = Integer.parseInt(limit.toString());
+        } else {
+            this.offset = 0;
+            this.limit = 10;
+        }
     }
 
     public int getOffset() {

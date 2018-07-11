@@ -1,0 +1,53 @@
+html {
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    overflow: auto;
+}
+
+body {
+    background-image: url(../../img/blog.jpg);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    overflow: auto;
+}
+
+#top {
+    width: 100%;
+    padding-right: 50px;
+    height: 250px;
+}
+
+#top a {
+    padding: 20px;
+    float: right;
+    line-height: 20px;
+    font-size: 18px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+#content {
+
+    height: auto;
+}
+
+#article_info {
+    padding-top: 120px;
+    margin: 0 auto;
+}
+.native-wrap{
+    padding-top: 100px;
+    width: 1000px;
+}
+.user_head{
+    float: left;
+}
+.comment_info{
+    padding-left: 20px;
+}

@@ -1,6 +1,11 @@
-.popover-content{
+a:hover {
+    text-decoration: none;
+}
+
+.popover-content {
     display: none;
 }
+
 ul {
     padding: 0;
     list-style: none;
@@ -14,11 +19,10 @@ ul {
 .top-nav ul li {
     /*float: left;*/
     display: inline-block;
-    margin: 20px;
+    padding: 20px;
 }
 
-li a:hover {
-    text-decoration: none;
+.top-nav li:hover {
     background-color: #999c9e;
 }
 
@@ -26,6 +30,7 @@ html {
     margin: 0;
     padding: 0;
     height: 100%;
+    overflow:auto;
 }
 
 body {
@@ -33,34 +38,50 @@ body {
     padding: 0;
     height: 100%;
     background-color: #f3f3f4;
+    overflow:auto;
 }
 
 #left-menu {
-    padding: 20px;
+    padding: 0px;
     float: left;
     height: 100%;
     background-color: #263a4a;
 }
 
-#left-menu a {
-    color: #a7b1c2;
+#menu-head, #menu-item {
+    padding: 30px;
 }
 
-#menu-head {
-    border-bottom: 1px solid white;
+a {
+    color: #a7b1c2;
+}
+#left-menu a:hover {
+
 }
 
 #menu-item {
+    font-size: 16px;
     width: 100%;
+    background-color: #2f4050;
+    height: 100%;
+}
+
+#menu-item li li:hover {
+    background-color: #263a4a;
+    color: white;
+}
+#menu-item li a:hover {
+    color: white;
 }
 
 .children-menu-item {
-    padding-left: 40px;
+    padding-left: 45px;
 }
 
 #right-content {
     float: left;
     height: 100%;
+    padding: 0px;
 }
 
 .top-nav {
@@ -70,4 +91,5 @@ body {
 
 .container-fluid {
     height: 100%;
+    padding: 0px;
 }

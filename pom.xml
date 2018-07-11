@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <hutool-all.version>4.0.12</hutool-all.version>
     </properties>
 
     <dependencies>
@@ -105,6 +106,12 @@
         </dependency>
 
 
+        <!-- hutool工具包 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

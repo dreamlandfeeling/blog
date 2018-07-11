@@ -13,7 +13,7 @@
         }
 
         body {
-            background-image: url("img/loginBack.jpg");
+            background-image: url(img/loginBack.jpg);
             background-size: cover; /*放大图片占满整个屏幕 */
             overflow-x: hidden; /*去除滚动条 */
             overflow-y: hidden; /*去除滚动条 */
@@ -63,13 +63,13 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">帐号</span>
             </div>
-            <input type="text" class="form-control" value="test" name="username" id="title">
+            <input type="text" class="form-control" value="admin" name="username" id="title">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">密码</span>
             </div>
-            <input type="password" class="form-control" value="test" name="password">
+            <input type="password" class="form-control" value="admin" name="password">
         </div>
         <div id="error" style="color:red"></div>
         <a class="btn btn-primary btn-block" title="登录" onclick="login()">登录</a>

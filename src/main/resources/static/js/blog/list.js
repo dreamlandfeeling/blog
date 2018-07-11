@@ -16,7 +16,7 @@ function removeArticle(id) {
                 if (data.status == 200) {
                     layer.msg("删除成功");
                 } else {
-                    layer.msg(r.msg);
+                    layer.msg(data.message);
                 }
             },
             dataType:'json'
@@ -54,10 +54,14 @@ function batchRemove() {
                     }
                     layer.msg("删除成功");
                 } else {
-                    layer.msg(r.msg);
+                    layer.msg(data.message);
                 }
             },
             dataType:'json'
         });
     });
+}
+
+function previewArticle(id) {
+    window.open("/blog/"+id);
 }

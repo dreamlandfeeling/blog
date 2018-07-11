@@ -77,7 +77,7 @@
         </where>
         <choose>
             <when test="sort != null and sort.trim() !=''">
-                order by <#noparse>$</#noparse>{${primaryKey.columnName}} <#noparse>$</#noparse>{order}
+                order by <#noparse>$</#noparse>{sort} <#noparse>$</#noparse>{order}
             </when>
             <otherwise>
                 order by ${primaryKey.columnName} desc

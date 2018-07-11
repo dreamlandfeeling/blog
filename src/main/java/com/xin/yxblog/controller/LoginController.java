@@ -39,6 +39,7 @@ public class LoginController {
         String cookieValue = UUID.randomUUID().toString();
         CookieUtils.setCookie(request,response,Constant.COOKIE_LOGIN,cookieValue,Constant.COOKIE_TIME);
         HttpSession session = request.getSession(true);
+        session.setMaxInactiveInterval(Constant.SESSION_TIME);
         user.setPassword(null);
         session.setAttribute(Constant.SESSION_LOGIN+cookieValue,JSON.toJSON(user));
         return Result.ok();

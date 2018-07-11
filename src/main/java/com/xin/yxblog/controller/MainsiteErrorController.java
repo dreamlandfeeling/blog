@@ -14,9 +14,7 @@ public class MainsiteErrorController implements ErrorController {
     private static final String ERROR_PATH = "/error";
 
     @RequestMapping(value=ERROR_PATH)
-    public String handleError(Exception e){
-        logger.error("出现错误："+e.getMessage(),e);
-        System.err.println("234");
+    public String handleError(){
         return "error/exception";
     }
 

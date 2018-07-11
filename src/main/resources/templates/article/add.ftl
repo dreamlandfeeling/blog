@@ -67,11 +67,11 @@
         function saveArticle() {
             getContent();
             $('#status').val(1);
-            $.post('/blog/article', $('#blog-form').serialize(), function (data) {
+            $.post('blog/article', $('#blog-form').serialize(), function (data) {
                 if (data.status == 200) {
                     layer.alert("发布成功");
                 } else {
-                    layer.alert("发布失败");
+                    layer.alert(data.message);
                 }
             }, "json");
         }
@@ -79,11 +79,11 @@
         function saveDraft() {
             getContent();
             $('#status').val(0);
-            $.post('/blog/article', $('#blog-form').serialize(), function (data) {
+            $.post('blog/article', $('#blog-form').serialize(), function (data) {
                 if (data.status == 200) {
                     layer.alert("存稿成功");
                 } else {
-                    layer.alert("存稿失败");
+                    layer.alert(data.message);
                 }
             }, "json");
         }
@@ -101,13 +101,13 @@
         <input id="status" name="status" type="hidden">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">标题(必需)</span>
+                <span class="input-group-text">标题(必填)</span>
             </div>
             <input type="text" class="form-control" placeholder="title" name="title" id="title">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">作者(任意)</span>
+                <span class="input-group-text">作者(选填)</span>
             </div>
             <input type="text" class="form-control" placeholder="author" name="author">
         </div>

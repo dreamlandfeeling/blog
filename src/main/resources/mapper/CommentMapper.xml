@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xin.yxblog.mapper.CommentMapper">
+    <resultMap id="BaseResultMap" type="com.xin.yxblog.model.Comment">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="aid" property="aid" jdbcType="INTEGER"/>
+        <result column="cid" property="cid" jdbcType="INTEGER"/>
+        <result column="author" property="author" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="is_admin" property="isAdmin" jdbcType="INTEGER"/>
+        <result column="createtime" property="createtime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.xin.yxblog.model.Comment" extends="BaseResultMap">
+    </resultMap>
+    <resultMap id="ResultMap" type="com.xin.yxblog.model.Comment" extends="BaseResultMap">
+        <association property="article" column="aid" javaType="com.xin.yxblog.model.Article">
+            <id property="id" column="article_id" jdbcType="INTEGER" />
+            <result property="title" column="article_title" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <trim suffixOverrides=",">
+            id,
+            aid,
+            cid,
+            author,
+            email,
+            content,
+            status,
+            is_admin,
+            createtime,
+        </trim>
+    </sql>
+
+    <select id="count" resultType="int">
+        select
+        count(*)
+        from yx_comment
+        <where>
+            <if test="id!=null and id!=''">and id = #{id,jdbcType=INTEGER}</if>
+            <if test="aid!=null and aid!=''">and aid = #{aid,jdbcType=INTEGER}</if>
+            <if test="cid!=null and cid!=''">and cid = #{cid,jdbcType=INTEGER}</if>
+            <if test="author!=null and author!=''">and author = #{author,jdbcType=VARCHAR}</if>
+            <if test="email!=null and email!=''">and email = #{email,jdbcType=VARCHAR}</if>
+            <if test="content!=null and content!=''">and content = #{content,jdbcType=VARCHAR}</if>
+            <if test="status!=null and status!=''">and status = #{status,jdbcType=INTEGER}</if>
+            <if test="isAdmin!=null and isAdmin!=''">and is_admin = #{isAdmin,jdbcType=INTEGER}</if>
+            <if test="createtime!=null and createtime!=''">and createtime = #{createtime,jdbcType=TIMESTAMP}</if>
+        </where>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from yx_comment
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="list" resultMap="ResultMap">
+        select c.*,
+        a.id article_id,a.title article_title
+        from yx_comment c INNER JOIN yx_article a on c.aid = a.id
+        <where>
+            <if test="id!=null and id!=''">and c.id = #{id,jdbcType=INTEGER}</if>
+            <if test="aid!=null and aid!=''">and c.aid = #{aid,jdbcType=INTEGER}</if>
+            <if test="cid!=null and cid!=''">and c.cid = #{cid,jdbcType=INTEGER}</if>
+            <if test="author!=null and author!=''">and c.author = #{author,jdbcType=VARCHAR}</if>
+            <if test="email!=null and email!=''">and c.email = #{email,jdbcType=VARCHAR}</if>
+            <if test="content!=null and content!=''">and c.content = #{content,jdbcType=VARCHAR}</if>
+            <if test="status!=null and status!=''">and c.status = #{status,jdbcType=INTEGER}</if>
+            <if test="isAdmin!=null and isAdmin!=''">and c.is_admin = #{isAdmin,jdbcType=INTEGER}</if>
+            <if test="createtime!=null and createtime!=''">and c.createtime = #{createtime,jdbcType=TIMESTAMP}</if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() !=''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by c.id desc
+            </otherwise>
+        </choose>
+        <if test="offset!=null and limit!=null">
+            limit ${offset} , ${limit}
+        </if>
+    </select>
+
+    <!--<select id="list" resultMap="BaseResultMap">-->
+        <!--select c.id,c.aid,c.cid,c.author,c.email,c.content,c.`status`,c.is_admin,c.createtime,-->
+        <!--a.id `article.id`,a.title `article.title`,a.author `article.author`,a.uid `article.uid`,-->
+        <!--a.content `article.content`,a.`status` `article.status`, a.createtime `article.createtime`,-->
+        <!--a.updatetime `article.updatetime`-->
+        <!--from yx_comment c INNER JOIN yx_article a on c.aid = a.id-->
+        <!--<where>-->
+            <!--<if test="id!=null and id!=''">and c.id = #{id,jdbcType=INTEGER}</if>-->
+            <!--<if test="aid!=null and aid!=''">and c.aid = #{aid,jdbcType=INTEGER}</if>-->
+            <!--<if test="cid!=null and cid!=''">and c.cid = #{cid,jdbcType=INTEGER}</if>-->
+            <!--<if test="author!=null and author!=''">and c.author = #{author,jdbcType=VARCHAR}</if>-->
+            <!--<if test="email!=null and email!=''">and c.email = #{email,jdbcType=VARCHAR}</if>-->
+            <!--<if test="content!=null and content!=''">and c.content = #{content,jdbcType=VARCHAR}</if>-->
+            <!--<if test="status!=null and status!=''">and c.status = #{status,jdbcType=INTEGER}</if>-->
+            <!--<if test="isAdmin!=null and isAdmin!=''">and c.is_admin = #{isAdmin,jdbcType=INTEGER}</if>-->
+            <!--<if test="createtime!=null and createtime!=''">and c.createtime = #{createtime,jdbcType=TIMESTAMP}</if>-->
+        <!--</where>-->
+        <!--<choose>-->
+            <!--<when test="sort != null and sort.trim() !=''">-->
+                <!--order by ${sort} ${order}-->
+            <!--</when>-->
+            <!--<otherwise>-->
+                <!--order by c.id desc-->
+            <!--</otherwise>-->
+        <!--</choose>-->
+        <!--<if test="offset!=null and limit!=null">-->
+            <!--limit ${offset} , ${limit}-->
+        <!--</if>-->
+    <!--</select>-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from yx_comment
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="batchRemove" parameterType="java.lang.Integer">
+        delete from yx_comment
+        where id in
+        <foreach collection="array" item="id" open="(" separator=","  close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <insert id="insert" parameterType="com.xin.yxblog.model.Comment" useGeneratedKeys="true" keyProperty="id">
+    insert into yx_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            aid,
+            cid,
+            author,
+            email,
+            content,
+            status,
+            is_admin,
+            createtime,
+        </trim>
+        <trim prefix="values ("  suffix=")" suffixOverrides=",">
+            #{id,jdbcType=INTEGER},
+            #{aid,jdbcType=INTEGER},
+            #{cid,jdbcType=INTEGER},
+            #{author,jdbcType=VARCHAR},
+            #{email,jdbcType=VARCHAR},
+            #{content,jdbcType=VARCHAR},
+            #{status,jdbcType=INTEGER},
+            #{isAdmin,jdbcType=INTEGER},
+            #{createtime,jdbcType=TIMESTAMP},
+        </trim>
+  </insert>
+    <insert id="insertSelective" parameterType="com.xin.yxblog.model.Comment" useGeneratedKeys="true" keyProperty="id">
+        insert into yx_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null ">id,</if>
+            <if test="aid!=null ">aid,</if>
+            <if test="cid!=null ">cid,</if>
+            <if test="author!=null ">author,</if>
+            <if test="email!=null ">email,</if>
+            <if test="content!=null ">content,</if>
+            <if test="status!=null ">status,</if>
+            <if test="isAdmin!=null ">is_admin,</if>
+            <if test="createtime!=null ">createtime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id!=null ">#{id,jdbcType=INTEGER},</if>
+            <if test="aid!=null ">#{aid,jdbcType=INTEGER},</if>
+            <if test="cid!=null ">#{cid,jdbcType=INTEGER},</if>
+            <if test="author!=null ">#{author,jdbcType=VARCHAR},</if>
+            <if test="email!=null ">#{email,jdbcType=VARCHAR},</if>
+            <if test="content!=null ">#{content,jdbcType=VARCHAR},</if>
+            <if test="status!=null ">#{status,jdbcType=INTEGER},</if>
+            <if test="isAdmin!=null ">#{isAdmin,jdbcType=INTEGER},</if>
+            <if test="createtime!=null ">#{createtime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xin.yxblog.model.Comment" useGeneratedKeys="true" keyProperty="id">
+        update yx_comment
+        <set>
+            <if test="aid!=null ">aid = #{aid,jdbcType=INTEGER},</if>
+            <if test="cid!=null ">cid = #{cid,jdbcType=INTEGER},</if>
+            <if test="author!=null ">author = #{author,jdbcType=VARCHAR},</if>
+            <if test="email!=null ">email = #{email,jdbcType=VARCHAR},</if>
+            <if test="content!=null ">content = #{content,jdbcType=VARCHAR},</if>
+            <if test="status!=null ">status = #{status,jdbcType=INTEGER},</if>
+            <if test="isAdmin!=null ">is_admin = #{isAdmin,jdbcType=INTEGER},</if>
+            <if test="createtime!=null ">createtime = #{createtime,jdbcType=TIMESTAMP},</if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xin.yxblog.model.Comment" useGeneratedKeys="true" keyProperty="id">
+    update yx_comment
+    <set>
+        aid = #{aid,jdbcType=INTEGER},
+        cid = #{cid,jdbcType=INTEGER},
+        author = #{author,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        content = #{content,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        is_admin = #{isAdmin,jdbcType=INTEGER},
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.xin.yxblog.model.Comment" useGeneratedKeys="true" keyProperty="id">
+    update yx_comment
+    <set>
+        aid = #{aid,jdbcType=INTEGER},
+        cid = #{cid,jdbcType=INTEGER},
+        author = #{author,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        content = #{content,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        is_admin = #{isAdmin,jdbcType=INTEGER},
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

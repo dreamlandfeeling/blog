@@ -45,7 +45,6 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public int update(Article article) {
-        article.setUpdatetime(new Date());
         return articleMapper.updateByPrimaryKeySelective(article);
     }
 

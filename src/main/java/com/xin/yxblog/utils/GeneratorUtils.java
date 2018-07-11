@@ -80,7 +80,10 @@ public class GeneratorUtils {
         String tableName = tableInfo.get(TABLE_NAME);
         table.setTableName(tableName);
         if (autoRemovePre) {
-            tableName = tableName.replace(tablePrefix, "");
+            int index = tableName.indexOf(tablePrefix);
+            if(index>=0){
+                tableName = tableName.substring(index+tablePrefix.length());
+            }
             table.setClassName((firstLetterCap(tableName)));
         } else {
             table.setClassName((firstLetterCap(tableName)));
