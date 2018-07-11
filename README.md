@@ -12,8 +12,9 @@
 3.  后端代码一键生成(controller/service/model/mapper)暂时只支持mysql
 
 ## 部分项目图
-
-
+![Image text](https://github.com/dreamlandfeeling/blog/blob/master/img-folder/admin.png)
+![Image text](https://github.com/dreamlandfeeling/blog/blob/master/img-folder/blog.png)
+![Image text](https://github.com/dreamlandfeeling/blog/blob/master/img-folder/blog_article.png)
 
 ## 项目部署
 1.	导入yxblog.sql
