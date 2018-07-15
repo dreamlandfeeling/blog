@@ -192,19 +192,12 @@ public class GeneratorUtils {
      * @return
      */
     public String createZipFileDirPath(Table table, String codeType) {
-        File file = null;
         String result = "";
         if (StringUtils.isNotBlank(table.getPackageName())) {
-            file = new File(filePath + packageNameToPackageURL(table.getPackageName()) + "/" + codeType + "/");
             result =  packageNameToPackageURL(table.getPackageName()) + "/" + codeType + "/";
         } else {
-            file = new File(filePath + codeType + "/");
             result =  codeType + "/";
         }
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-
         return result;
     }
 

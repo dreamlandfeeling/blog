@@ -4,6 +4,10 @@ import com.xin.yxblog.utils.StringUtils;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,12 +53,8 @@ public class TT {
     }
     @Test
     public void Test4(){
-        String str = "192.168.1.1";
-        String[] split = str.split("\\.");
-        for (String s : split) {
-            System.out.println(s);
-        }
-        System.out.println(str.matches("\\d{1,4}"));
+        String a = null;
+        a.toLowerCase();
     }
 
     public void myCopy(String sourceFile,String destFile) throws IOException {
@@ -71,4 +71,17 @@ public class TT {
         out.close();
     }
 
+
+    @Test
+    public void Test5() throws IOException {
+        Properties properties = new Properties();
+        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("generator.properties");
+        properties.load(resourceAsStream);
+        String property = properties.getProperty("BIT");
+        System.out.println(property);
+        int[] ints1 = new int[10];
+        List<int[]> ints2 = Arrays.asList(ints1);
+
+        ArrayList<int[]> ints = new ArrayList<int[]>(ints2);
+    }
 }

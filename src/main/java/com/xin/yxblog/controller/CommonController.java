@@ -86,5 +86,4 @@ public class CommonController extends BaseController{
         return "blog/artile";
     }
 
-
 }

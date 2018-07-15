@@ -1,19 +1,20 @@
 package com.xin.yxblog;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.xin.yxblog.utils.GeneratorUtils;
-import freemarker.template.Configuration;
 import org.junit.Test;
 
-import java.io.File;
+import javax.annotation.security.RunAs;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
 
-public class Demo {
+public class Demo  {
     private Date time;
     private Boolean status;
+
+
+
 
     @Test
     public void test() throws IOException {
@@ -40,5 +41,21 @@ public class Demo {
         System.out.println(s);
     }
 
+    @Test
+    public void test4() throws IOException {
+    }
+
+    public static void main(String[] args){
+        Te te = new Te();
+        Thread thread = new Thread(te);
+        thread.start();
+
+    }
+
+    @Test
+    public void test5() throws IOException {
+
+
+    }
 
 }
